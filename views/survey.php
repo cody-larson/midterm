@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Midterm Survey</h1>
-    <form method="post" action="#">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label>Name
             <input type="text" name="name" value="{{ @name }}">
         </label>

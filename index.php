@@ -28,12 +28,35 @@ $f3->route('GET /', function () {
     echo $view->render('views/home.html');
 });
 
-//Define a breakfast route
-$f3->route('GET /survey', function () {
+//Define a survey route
+$f3->route('GET|POST /survey', function ($f3) {
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $f3->set('name', $_POST['name']);
+        $_SESSION['name'] = $_POST['name'];
+
+        $f3->set('optionsArray', $_POST['options']);
+        $_SESSION['options'] = $_POST['options'];
+
+
+        $f3->reroute('./summary');
+    }
 
     //Display a view
     $view = new Template();
     echo $view->render('views/survey.php');
+});
+
+//Define a summary route
+$f3->route('GET|POST /summary', function($f3) {
+
+    $f3->set('name', $_SESSION['name']);
+    $optionsArray = implode(', ', $_SESSION['options']);
+    $f3->set('options', $optionsArray);
+
+    $view = new Template();
+    echo $view->render('views/results.php');
 });
 
 
