@@ -10,7 +10,8 @@
 </head>
 <body>
 <h1>Results page</h1>
-<p> {{ @name }} </p>
+<p> Thank you for taking the survey, {{ @name }} </p>
+<h3>Your Answers:</h3>
 <p> {{ @options }} </p>
 </body>
 </html>

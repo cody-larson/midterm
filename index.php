@@ -31,16 +31,19 @@ $f3->route('GET /', function () {
 //Define a survey route
 $f3->route('GET|POST /survey', function ($f3) {
 
-    $f3->set('isValid', FALSE);
+    $f3->set('isValid', TRUE);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (isset($_POST['name']) && $_POST['name'] != "") {
+            $f3->set('name', $_POST['name']);
+        }
 
         if (empty($_POST['name'])) {
             $f3->set('nameErr', "Name is required");
             $f3->set('isValid', FALSE);
         } else {
             $_SESSION['name'] = $_POST['name'];
-            $f3->set('isValid', TRUE);
         }
 
         if (!isset($_POST['options'])) {
@@ -49,7 +52,6 @@ $f3->route('GET|POST /survey', function ($f3) {
         } else {
             $f3->set('optionsArray', $_POST['options']);
             $_SESSION['options'] = $_POST['options'];
-            $f3->set('isValid', TRUE);
         }
     }
 
