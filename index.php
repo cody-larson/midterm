@@ -31,15 +31,31 @@ $f3->route('GET /', function () {
 //Define a survey route
 $f3->route('GET|POST /survey', function ($f3) {
 
+    $f3->set('isValid', FALSE);
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $f3->set('name', $_POST['name']);
-        $_SESSION['name'] = $_POST['name'];
+        if (empty($_POST['name'])) {
+            $f3->set('nameErr', "Name is required");
+            $f3->set('isValid', FALSE);
+        } else {
+            $_SESSION['name'] = $_POST['name'];
+            $f3->set('isValid', TRUE);
+        }
 
-        $f3->set('optionsArray', $_POST['options']);
-        $_SESSION['options'] = $_POST['options'];
+        if (!isset($_POST['options'])) {
+            $f3->set('optionsErr', "Please select an option");
+            $f3->set('isValid', FALSE);
+        } else {
+            $f3->set('optionsArray', $_POST['options']);
+            $_SESSION['options'] = $_POST['options'];
+            $f3->set('isValid', TRUE);
+        }
+    }
 
+    $valid = $f3->get('isValid');
 
+    if ($valid) {
         $f3->reroute('./summary');
     }
 
