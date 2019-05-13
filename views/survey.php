@@ -25,7 +25,7 @@
                 <label class="form-check-label">{{ @options }}</label>
                 <br>
         </repeat>
-        <span> {{ @optionsErr }} </span>
+        <p> {{ @optionsErr }} </p>
         <input type="submit" value="Submit">
     </form>
 </body>

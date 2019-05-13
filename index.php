@@ -53,12 +53,12 @@ $f3->route('GET|POST /survey', function ($f3) {
             $f3->set('optionsArray', $_POST['options']);
             $_SESSION['options'] = $_POST['options'];
         }
-    }
 
-    $valid = $f3->get('isValid');
+        $valid = $f3->get('isValid');
 
-    if ($valid) {
-        $f3->reroute('./summary');
+        if ($valid) {
+            $f3->reroute('./summary');
+        }
     }
 
     //Display a view
